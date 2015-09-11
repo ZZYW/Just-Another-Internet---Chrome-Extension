@@ -1,0 +1,1 @@
+//chrome.tabs.create({"url":"http://baidu.com"});

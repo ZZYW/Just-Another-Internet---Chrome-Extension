@@ -1,0 +1,36 @@
+{
+	"manifest_version": 2,
+	"name": "The GFW Experience",
+	"description": "Just Another Internet Experience",
+	"version": "1.0",
+	"author": "zzyw studio",
+
+
+	"browser_action": {
+		"default_icon": "icon_37.png",
+		"default_popup": "popup.html"
+	},
+
+	"background":
+    {
+	    "persistent":true,
+        "scripts": ["lib/jquery.min.js","blocker.js"]
+	    
+    },
+	
+	"content_scripts": [
+		{
+			"matches": ["*://*.facebook.com/*","*://*.twitter.com/*","http://*.google.com/*"],
+			"js": ["lib/jquery.min.js","content.js"]
+		}
+	],
+
+	"permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "http://*/*",
+        "https://*/*",
+        "storage"
+    ]
+	
+}
