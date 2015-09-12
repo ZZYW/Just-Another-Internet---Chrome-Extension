@@ -20,17 +20,38 @@
 	
 	"content_scripts": [
 		{
-			"matches": ["*://*.facebook.com/*","*://*.twitter.com/*","http://*.google.com/*"],
+			"matches":  [
+	    "*://*.nytimes.com/*",
+	    "*://*.facebook.com/*",
+	    "*://*.bloomberg.com/*",
+	    "*://*.aljazeera.com/*",
+	     "*://*.tumblr.com/*",
+	     "*://*.twitter.com/*",
+	     "*://mail.google.com/*",
+	     "*://*.youtube.com/*",
+	     "*://*.t.co/*",
+	     "*://*.google.co.jp/*",
+	     "*://*.flickr.com/*",
+	     "*://*.vimeo.com/*",
+	     "*://*.cbc.ca/*"
+    ],
 			"js": ["lib/jquery.min.js","content.js"]
 		}
 	],
 
-	"permissions": [
+	"permissions":[
+	"webNavigation",
+        
         "webRequest",
         "webRequestBlocking",
         "http://*/*",
         "https://*/*",
         "storage"
+    ],
+
+	"web_accessible_resources": [
+        "page.html"
     ]
+	
 	
 }

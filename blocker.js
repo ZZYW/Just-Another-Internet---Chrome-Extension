@@ -1,6 +1,6 @@
-var blocklist = 
-    [
+var blocklist = [
 	    "*://*.nytimes.com/*",
+	    "*://*.facebook.com/*",
 	    "*://*.bloomberg.com/*",
 	    "*://*.aljazeera.com/*",
 	     "*://*.tumblr.com/*",
@@ -11,15 +11,25 @@ var blocklist =
 	     "*://*.google.co.jp/*",
 	     "*://*.flickr.com/*",
 	     "*://*.vimeo.com/*",
-	     "*://*.cbc.ca/*",
+	     "*://*.cbc.ca/*"
     ]
 
 chrome.webRequest.onBeforeRequest.addListener(
-    function() {
-        return {cancel: true};
-    },
-    {
-        urls: blocklist
-    },
-    ["blocking"]
+	function () {
+		return {
+			cancel: true
+		};
+	}, {
+		urls: blocklist
+	}, ["blocking"]
 );
+
+//Adding a Listener to Error Occured Event
+chrome.webNavigation.onErrorOccurred.addListener(function (details) {
+	
+	chrome.tabs.update(details.tabId, {
+		url: chrome.extension.getURL("dnserrorpage.html")
+	});
+
+
+});
