@@ -1,3 +1,5 @@
+var on = true;
+
 var blocklist = [
 	    "*://*.nytimes.com/*",
 	    "*://*.facebook.com/*",
@@ -14,22 +16,49 @@ var blocklist = [
 	     "*://*.cbc.ca/*"
     ]
 
+function redirect(arg) {
+	return {
+		redirectUrl: chrome.extension.getURL("dnserrorpage.html")
+	};
+}
+
+
 chrome.webRequest.onBeforeRequest.addListener(
-	function () {
-		return {
-			cancel: true
-		};
-	}, {
+	redirect, //callback function
+
+	{
 		urls: blocklist
-	}, ["blocking"]
+	}, //filter
+
+	["blocking"]
+
 );
 
-//Adding a Listener to Error Occured Event
-chrome.webNavigation.onErrorOccurred.addListener(function (details) {
-	
-	chrome.tabs.update(details.tabId, {
-		url: chrome.extension.getURL("dnserrorpage.html")
-	});
+chrome.browserAction.onClicked.addListener(function (tab) { //Fired when User Clicks ICON
+	if (on) {
+		chrome.webRequest.onBeforeRequest.removeListener(redirect);
+		on = false;
+		chrome.browserAction.setIcon({
+			path: {
+				"38": "icon_37_off.png",
+			}
+		});
+	} else {
+		chrome.webRequest.onBeforeRequest.addListener(
+			redirect, //callback function
 
+			{
+				urls: blocklist
+			}, //filter
 
+	["blocking"]
+
+		);
+		on = true;
+		chrome.browserAction.setIcon({
+			path: {
+				"38": "icon_37.png",
+			}
+		});
+	}
 });
