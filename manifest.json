@@ -2,9 +2,8 @@
     "manifest_version": 2,
     "name": "Just Another Internet",
     "description": "The unique Internet experience of China",
-    "version": "1.0",
-    "author": "zzyw studio",
-
+    "version": "1.10",
+    "author": "yang wang",
 
     "browser_action": {
         "default_icon": "icon_37.png"
